@@ -1,13 +1,13 @@
 /* styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: rgb(255, 222, 254); 
+    background-color: #f8f6f3; 
     margin: 0;
     padding: 0;
 }
 
 .top-menu {
-    background-color: rgb(252, 200, 172);
+    background-color: rgb(138, 167, 123);
     padding: 2vh 0;
     position: fixed;
     width: 100%; 
@@ -17,22 +17,33 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    color: #DDDBD7;
 }
 
 .top-menu a {
     text-decoration: none;
     margin: 0 10px;
-    color: #333;
+    color: #f8f6f3;
 }
 
 .content {
-    margin-top: 60px;
+    margin-top: 5vh;
     padding: 20px;
     text-align: center;
 }
 .menu-toggle {
     display: none;
 }
+
+.hamburger-menu {
+    display: none; 
+    font-size: 10vw; 
+    background: none;
+    border: none;
+    color: #333; 
+    cursor: pointer;
+    right: 0;
+  }
 
 /* Media query for mobile devices */
 @media (max-width: 600px) {
@@ -63,5 +74,17 @@ body {
         background-color: #f0f0f0;
         text-align: center;
         cursor: pointer;
+    }
+
+    .top-menu.active {
+        display: block;
+    }
+
+    .hamburger-menu {
+        display: block;
+      }
+
+    .content {
+        margin-top: 5vh;
     }
 }
