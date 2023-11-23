@@ -6,85 +6,66 @@ body {
     padding: 0;
 }
 
-.top-menu {
-    background-color: rgb(138, 167, 123);
-    padding: 2vh 0;
-    position: fixed;
-    width: 100%; 
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    color: #DDDBD7;
-}
-
-.top-menu a {
-    text-decoration: none;
-    margin: 0 10px;
-    color: #f8f6f3;
-}
-
 .content {
     margin-top: 5vh;
     padding: 20px;
     text-align: center;
 }
-.menu-toggle {
-    display: none;
+
+/* Side controls styling */
+.side-controls {
+    position: fixed;
+    right: 0;
+    top: 50%; 
+    transform: translateY(-50%);
+    z-index: 1001; 
 }
 
-.hamburger-menu {
-    display: none; 
-    font-size: 10vw; 
-    background: none;
+.side-controls .control {
+    display: block;
+    margin: 10px 0;
+    background-color: rgb(138, 167, 123);
+    color: #f8f6f3;
+    padding: 10px;
+    text-align: center;
     border: none;
-    color: #333; 
     cursor: pointer;
-    right: 0;
-  }
+    border-radius: 50%; 
+    width: 4vw; 
+    height: 4vw; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content section styling */
+.content-section {
+    padding: 20px;
+    margin-bottom: 2vh; 
+    border-bottom: 5vh solid rgb(50, 33, 33);
+}
+
+.image img {
+    display: block; 
+    max-width: 70vw; 
+    height: auto; 
+    margin: 0 auto; 
+    border-radius: 15px; 
+    margin-left: 7vw;
+}
+
+
+/* Adjust the .content-section padding to account for fixed side controls */
+.content-section {
+    padding-right: 50px; 
+}
+
 
 /* Media query for mobile devices */
 @media (max-width: 600px) {
-    .top-menu {
-        flex-direction: column;
-        padding: 0;
-    }
-
-    .top-menu a {
-        display: none; 
-        width: 100%;
-        text-align: center;
-        padding: 10px;
-        border-top: 1px solid #ddd;
-    }
-
-    .top-menu a:first-child {
-        border-top: none;
-    }
-
-    .top-menu.active a {
-        display: block; 
-    }
-
-    .menu-toggle {
-        display: block;
-        padding: 10px;
-        background-color: #f0f0f0;
-        text-align: center;
-        cursor: pointer;
-    }
-
-    .top-menu.active {
-        display: block;
-    }
-
-    .hamburger-menu {
-        display: block;
-      }
+   
 
     .content {
-        margin-top: 5vh;
+        margin-top: 10vh;
     }
 }

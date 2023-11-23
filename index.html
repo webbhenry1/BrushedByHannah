@@ -3,26 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brushed by Hannah</title>
     <link rel="stylesheet" href="src/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <button class="hamburger-menu" onclick="toggleMenu()">
-        ☰
-    </button>
-      
-    <div id="menu" class="top-menu">
-        <a href="index.html">Home</a>
-        <a href="aboutMe.html">About Me</a>
-        <a href="schedule.html">My Schedule</a>
-        <a href="appointment.html">Make an Appointment</a>
-        <a href="contactMe.html">Contact Me</a>
+    <!-- Side Controls -->
+    <!-- <div class="side-controls">
+        <a class="control" href="#home-section">Home</a>
+        <a class="control" href="#about-section">About Me</a>
+        <a class="control" href="#schedule-section">My Schedule</a>
+        <a class="control" href="#appointment-section">Make an Appointment</a>
+        <a class="control" href="#contact-section">Contact Me</a>
+    </div> -->
+    <div class="side-controls">
+        <a class="control" href="#home-section">
+            <i class="fas fa-home"></i>
+        </a>
+        <a class="control" href="#about-section">
+            <i class="fas fa-user"></i>
+        </a>
+        <a class="control" href="#appointment-section">
+            <i class="fas fa-calendar"></i>
+        </a>
+        <a class="control" href="#contact-section">
+            <i class="fas fa-envelope-open"></i>
+        </a>
     </div>
 
-    <div class="content">
-        <h1>Hi, My Name is Hannah!</h1>
-    </div>
+    <!-- Combined Content Sections -->
+    <section id="home-section" class="content-section">
+        <div class="image">
+            <img src="img/HannahHero.PNG" alt="Hannah Hero Image" style="width:100%;">
+        </div>
+        <div class="welcome-text">
+            <h1>Hi, My Name is Hannah!</h1>
+            <p>Step into my chill beauty spot, where getting your hair and makeup done is like hanging out with your bestie. Expect a cool vibe that matches my personality, creating a comfy space where you’re heard and celebrated. Let’s boost your natural beauty and have a fantastic time doing it. Whether you’re up for trying new looks or sticking to your go-to style, our time together is all about making you feel fantastic. I’m currently diving into cosmetology studies, working toward my license and keeping up with the latest trends. Your beauty journey is a dynamic adventure we’ll embark on together as my expertise evolves.</p>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about-section" class="content-section">
+        <h2>About Me</h2>
+        <!-- About Me content -->
+    </section>
 
-    <script src="src/js/script.js"></script>
+    <!-- Appointment Section -->
+    <section id="appointment-section" class="content-section">
+        <h2>Make an Appointment</h2>
+        <!-- Appointment content -->
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact-section" class="content-section">
+        <h2>Contact Me</h2>
+        <!-- Contact Me content -->
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
