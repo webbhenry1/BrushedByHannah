@@ -4,18 +4,16 @@ body {
     background-color: #f8f6f3; 
     margin: 0;
     padding: 0;
+    text-align: center; 
 }
 
-.content {
-    margin-top: 5vh;
-    padding: 20px;
-    text-align: center;
+h1{
+    font-size: 2vw;
 }
-
 /* Side controls styling */
 .side-controls {
     position: fixed;
-    right: 0;
+    right: 1vw;
     top: 50%; 
     transform: translateY(-50%);
     z-index: 1001; 
@@ -23,7 +21,7 @@ body {
 
 .side-controls .control {
     display: block;
-    margin: 10px 0;
+    margin: 20px 0; 
     background-color: rgb(138, 167, 123);
     color: #f8f6f3;
     padding: 10px;
@@ -36,30 +34,45 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1.5vw; 
 }
 
 /* Content section styling */
 .content-section {
     padding: 20px;
     margin-bottom: 2vh; 
-    border-bottom: 5vh solid rgb(50, 33, 33);
+    border-bottom: 5px solid #593B1F; 
 }
 
 .image img {
     display: block; 
-    max-width: 70vw; 
+    max-width: 90%; 
     height: auto; 
-    margin: 0 auto; 
-    border-radius: 15px; 
-    margin-left: 7vw;
+    margin: 1vh auto; 
+    border-radius: 4vw; 
+    margin-right: 5vw;
 }
 
+.welcome-text {
+    background-color: #593B1F; 
+    color: #f8f6f3; 
+    border-radius: 2vw; 
+    display: inline-block; 
+    padding: 20px;
+    margin: 1vh auto; 
+    max-width: 60%; 
+}
 
 /* Adjust the .content-section padding to account for fixed side controls */
 .content-section {
-    padding-right: 50px; 
+    padding-right: 2vw; 
 }
 
+.content-section h1,
+.content-section h2 {
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* Media query for mobile devices */
 @media (max-width: 600px) {
