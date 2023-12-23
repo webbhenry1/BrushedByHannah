@@ -1,14 +1,5 @@
 // script.js
-window.onscroll = function() {
-    var menu = document.getElementById('menu');
-    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        menu.style.display = 'none';
-    } else {
-        menu.style.display = 'flex';
-    }
-};
 
-// script.js
 document.addEventListener('DOMContentLoaded', function() {
     // Select all control elements
     var controls = document.querySelectorAll('.control');
@@ -30,10 +21,29 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active-btn');
         });
     });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Attach click event to menu toggle button
-    var toggleButton = document.querySelector('.menu-toggle');
-    toggleButton.onclick = toggleMenu;
-})
+    // Initialize the carousel
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.carousel-images img');
+    const totalImages = images.length;
+
+    function updateCarousel() {
+        images.forEach(img => {
+            img.style.display = 'none';
+        });
+        images[currentIndex].style.display = 'block'; 
+    }
+
+    // Control buttons
+    document.querySelector('.left-control').addEventListener('click', function() {
+        currentIndex = (currentIndex + totalImages - 1) % totalImages;
+        updateCarousel();
+    });
+
+    document.querySelector('.right-control').addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        updateCarousel();
+    });
+
+    updateCarousel(); 
+});

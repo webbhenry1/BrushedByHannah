@@ -44,6 +44,46 @@ h1{
     border-bottom: 5px solid #593B1F; 
 }
 
+/* IMAGES FOR SECTION HEADERS-------------------------------------------------------------------------*/
+
+.aboutMe-image img {
+    display: block; 
+    max-width: 30%; 
+    height: auto; 
+    margin: 1vh auto; 
+    border-radius: 15px; 
+    margin-bottom: 2vh;
+}
+
+.gallery-image img {
+    display: block; 
+    max-width: 25%; 
+    height: auto; 
+    margin: 1vh auto; 
+    border-radius: 15px; 
+    margin-bottom: 2vh;
+}
+
+.appointment-image img {
+    display: block; 
+    max-width: 60%; 
+    height: auto; 
+    margin: 1vh auto; 
+    border-radius: 15px; 
+    margin-bottom: 2vh;
+}
+
+.contact-image img {
+    display: block; 
+    max-width: 45%; 
+    height: auto; 
+    margin: 1vh auto; 
+    border-radius: 15px; 
+    margin-bottom: 2vh;
+}
+
+/*-HOME SECTION---------------------------------------------------------------------------------------*/
+
 .name-image img {
     display: block; 
     max-width: 70%; 
@@ -74,7 +114,6 @@ h1{
     font-size: 1.75vw;
 }
 
-/* Adjust the .content-section padding to account for fixed side controls */
 .content-section {
     padding-right: 2vw; 
 }
@@ -84,6 +123,47 @@ h1{
     margin-left: auto;
     margin-right: auto;
 }
+
+
+/*-GALLERY SECTION---------------------------------------------------------------------------------------*/
+
+.carousel {
+    position: relative;
+    max-width: 600px; /* Adjust as needed */
+    margin: auto;
+    overflow: hidden;
+}
+
+.carousel-images img {
+    width: 100%;
+    display: none; /* Hide all images by default */
+    transition: opacity 0.5s ease-in-out; /* Smooth transition for the fade effect */
+}
+
+.carousel-images img.active {
+    display: block; /* Only the active image is shown */
+    opacity: 1;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.left-control {
+    left: 0;
+}
+
+.right-control {
+    right: 0;
+}
+
 
 /* Media query for mobile devices */
 @media (max-width: 600px) {
