@@ -96,6 +96,18 @@
         <div class="contact-image">
             <img src="img/contactMe.png" alt="Contact Me Image">
         </div> 
+        
+        <div id="loading-spinner" class="loading-spinner"></div>
+
+        <div id="overlay" class="overlay"></div>
+
+        <div id="thank-you-popup" class="thank-you-popup">
+            <p>Thank you for your message!
+                <br>
+                I will return your message as soon as I can!
+            </p>
+            <button id="close-popup">X</button>
+        </div>
         <form id="contact-form">
             <input type="text" id="first-name" name="first_name" placeholder="First Name" required>
             <input type="text" id="last-name" name="last_name" placeholder="Last Name" required>
@@ -104,6 +116,9 @@
             <button type="submit">Send Message</button>
         </form>
     </section>
+
+
+
 
     <script src="src/js/script.js"></script>
 </body>
