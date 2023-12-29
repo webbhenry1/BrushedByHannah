@@ -21,8 +21,6 @@
         <a class="control" href="#appointment-section">
             <i class="fas fa-calendar"></i>
         </a>
-
-
         <a class="control" href="#contact-section">
             <i class="fas fa-envelope-open"></i>
         </a>
@@ -63,32 +61,39 @@
         </div>
     </section>
 
-    <!-- Appointment Section -->
+   <!-- Appointment Section -->
     <section id="appointment-section" class="content-section">
         <div class="appointment-image">
             <img src="img/appointment.png" alt="Appointment Image">
         </div>  
+        <p class="availability-instruction">Please select a day below to see my availability</p>
         <div class="wrapper">
             <header>
-              <p class="current-date"></p>
-              <div class="icons">
-                <span id="prev" class="material-symbols-rounded">chevron_left</span>
-                <span id="next" class="material-symbols-rounded">chevron_right</span>
-              </div>
+                <p class="current-date"></p>
+                <div class="icons">
+                    <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                    <span id="next" class="material-symbols-rounded">chevron_right</span>
+                </div>
             </header>
             <div class="calendar">
-              <ul class="weeks">
-                <li>Sun</li>
-                <li>Mon</li>
-                <li>Tue</li>
-                <li>Wed</li>
-                <li>Thu</li>
-                <li>Fri</li>
-                <li>Sat</li>
-              </ul>
-              <ul class="days"></ul>
+                <ul class="weeks">
+                    <li>Sun</li>
+                    <li>Mon</li>
+                    <li>Tue</li>
+                    <li>Wed</li>
+                    <li>Thu</li>
+                    <li>Fri</li>
+                    <li>Sat</li>
+                </ul>
+                <ul class="days"></ul>
             </div>
-          </div>  
+        </div>  
+
+        <!-- Popup for showing availability -->
+        <div id="availability-popup" class="availability-popup">
+            <button id="close-popup" class="close-popup">&times;</button>
+            <p id="availability-text">Availability on <span id="selected-date">XXXX</span></p>
+        </div>
     </section>
 
     <!-- Contact Section -->
@@ -96,7 +101,7 @@
         <div class="contact-image">
             <img src="img/contactMe.png" alt="Contact Me Image">
         </div> 
-        
+
         <div id="loading-spinner" class="loading-spinner"></div>
 
         <div id="overlay" class="overlay"></div>
@@ -115,10 +120,8 @@
             <textarea id="message" name="message" placeholder="Your Message" required></textarea>
             <button type="submit">Send Message</button>
         </form>
+
     </section>
-
-
-
 
     <script src="src/js/script.js"></script>
 </body>

@@ -101,6 +101,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Function to show the availability popup with the selected date
+    function showAvailabilityPopup(dateText) {
+        document.getElementById('selected-date').innerText = dateText;
+        document.getElementById('availability-popup').style.display = 'block';
+    }
+
+    // Function to hide the availability popup
+    function hideAvailabilityPopup() {
+        document.getElementById('availability-popup').style.display = 'none';
+    }
+
+    // Event listener for closing the popup
+    document.getElementById('close-popup').addEventListener('click', function() {
+        hideAvailabilityPopup();
+    });
+
+    // Add event listener for calendar days
+    document.querySelectorAll('.days li').forEach(day => {
+        day.addEventListener('click', function() {
+ 
+            const day = this.textContent; 
+            const month = currMonth + 1; 
+            const dateText = `${month}/${day}/${currYear}`; 
+            showAvailabilityPopup(dateText);
+        });
+    });
+
+    // Event delegation for calendar days
+    document.querySelector(".calendar").addEventListener('click', function(e) {
+        // Check if a day was clicked and it's not an inactive day from another month
+        if (e.target.tagName === 'LI' && !e.target.classList.contains('inactive')) {
+            const dayNumber = e.target.textContent.padStart(2, '0'); 
+            // Format the date as MM/DD/YYYY
+            const monthNumber = String(currMonth + 1).padStart(2, '0'); 
+            const dateText = `${monthNumber}/${dayNumber}/${currYear}`;
+            showAvailabilityPopup(dateText); // Function to show the popup with the formatted date
+        }
+    });
+
     // Function to show loading spinner and overlay
     function showLoading() {
         const loader = document.getElementById('loading-spinner');
