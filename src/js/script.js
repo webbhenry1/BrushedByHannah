@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Select all control elements
     var controls = document.querySelectorAll('.control');
 
+
     // Add click event to each control
     controls.forEach(function(control) {
         control.addEventListener('click', function(e) {
@@ -61,31 +62,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const months = ["January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"];
 
+    // Function to render the calendar
     const renderCalendar = () => {
-        let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), 
-        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), 
-        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), 
-        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); 
+        let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),
+            lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
+            lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(),
+            lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
         let liTag = "";
-
-        for (let i = firstDayofMonth; i > 0; i--) { 
+    
+        for (let i = firstDayofMonth; i > 0; i--) {
             liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
         }
-
-        for (let i = 1; i <= lastDateofMonth; i++) { 
-            let isToday = i === date.getDate() && currMonth === new Date().getMonth() 
-                        && currYear === new Date().getFullYear() ? "active" : "";
-            liTag += `<li class="${isToday}">${i}</li>`;
+    
+        for (let i = 1; i <= lastDateofMonth; i++) {
+            let isToday = i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear() ? "active" : "";
+            liTag += `<li class="${isToday}">${i}</li>`; // Removed "current-month" class to simplify the logic
         }
-
-        for (let i = lastDayofMonth; i < 6; i++) { 
-            liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+    
+        for (let i = lastDayofMonth; i < 6; i++) {
+            liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
         }
-        currentDate.innerText = `${months[currMonth]} ${currYear}`; 
+        currentDate.innerText = `${months[currMonth]} ${currYear}`;
         daysTag.innerHTML = liTag;
-    }
+    };
+    
     renderCalendar();
-
+    
     prevNextIcon.forEach(icon => { 
         icon.addEventListener("click", () => { 
             currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
@@ -130,13 +132,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event delegation for calendar days
     document.querySelector(".calendar").addEventListener('click', function(e) {
-        // Check if a day was clicked and it's not an inactive day from another month
+        // Check if the clicked element is a day in the calendar and is not 'inactive'
         if (e.target.tagName === 'LI' && !e.target.classList.contains('inactive')) {
-            const dayNumber = e.target.textContent.padStart(2, '0'); 
-            // Format the date as MM/DD/YYYY
-            const monthNumber = String(currMonth + 1).padStart(2, '0'); 
-            const dateText = `${monthNumber}/${dayNumber}/${currYear}`;
-            showAvailabilityPopup(dateText); // Function to show the popup with the formatted date
+            const day = e.target.textContent;
+            const date = new Date(currYear, currMonth, day);
+            if (date.getMonth() === currMonth) { 
+                // Format the date as MM/DD/YYYY
+                const formattedDate = `${date.getMonth() + 1}/${day}/${date.getFullYear()}`;
+                // Now you can show the popup for the selected date
+                showAvailabilityPopup(formattedDate);
+            }
         }
     });
 

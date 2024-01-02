@@ -125,6 +125,39 @@ h1{
     margin-right: auto;
 }
 
+/*-ABOUT-ME SECTION---------------------------------------------------------------------------------------*/
+
+.about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+.about-item.reverse {
+    flex-direction: row-reverse;
+}
+
+.about-image, .about-text {
+    flex: 1; /* Each takes up half of the container */
+    padding: 10px; /* Adjust padding as needed */
+}
+
+.about-image img {
+    max-width: 100%; /* Ensures the image is responsive */
+    height: auto;
+}
+
+.about-text {
+    text-align: left; /* Adjust text alignment as needed */
+}
+
 
 /*-GALLERY SECTION---------------------------------------------------------------------------------------*/
 
