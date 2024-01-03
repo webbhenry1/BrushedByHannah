@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('contact-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        showLoading(); // Show loading spinner and overlay
+        showLoading(); 
 
         const formData = {
             firstName: document.getElementById('first-name').value,
@@ -193,9 +193,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            hideLoading(); // Hide loading spinner only
-            showThankYouPopup(); // Show thank you popup
-            document.getElementById('contact-form').reset(); // Clear form fields
+            hideLoading(); 
+            showThankYouPopup(); 
+            document.getElementById('contact-form').reset(); 
         })
         .catch(error => {
             console.error('Error:', error);
@@ -213,6 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.onload = function() {
         hideLoading();
         closeThankYouPopup();
+        renderCalendar()
     };
     
     // Add event listener for calendar days

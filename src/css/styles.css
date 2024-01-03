@@ -48,9 +48,15 @@ h1{
 
 /* IMAGES FOR SECTION HEADERS-------------------------------------------------------------------------*/
 
+.about-container{
+    margin-left: 5%;
+    margin-right: 5%;
+
+}
+
 .aboutMe-image img {
     display: block; 
-    max-width: 25%; 
+    max-width: 30%; 
     height: auto; 
     margin: 1vh auto; 
     border-radius: 15px; 
@@ -59,7 +65,7 @@ h1{
 
 .gallery-image img {
     display: block; 
-    max-width: 20%; 
+    max-width: 25%; 
     height: auto; 
     margin: 1vh auto; 
     border-radius: 15px; 
@@ -68,7 +74,7 @@ h1{
 
 .appointment-image img {
     display: block; 
-    max-width: 50%; 
+    max-width: 55%; 
     height: auto; 
     margin: 1vh auto; 
     border-radius: 15px; 
@@ -77,7 +83,7 @@ h1{
 
 .contact-image img {
     display: block; 
-    max-width: 35%; 
+    max-width: 40%; 
     height: auto; 
     margin: 1vh auto; 
     border-radius: 15px; 
@@ -88,11 +94,12 @@ h1{
 
 .logo img {
     display: block; 
-    max-width: 30%; 
+    max-width: 60%; 
     height: auto; 
     margin-left: auto;
     margin-right: auto;
-    border-radius: 15px; 
+    border-radius: 15px;
+    margin-bottom: -5vh; 
 }
 
 .name-image img {
@@ -114,14 +121,14 @@ h1{
 
 
 .welcome-text {
-    background-color: #d9baa0; 
+    background-color: #f9bdcf; 
     color: black; 
     border-radius: 2vw; 
     display: inline-block; 
     padding: 20px;
     margin: 5vh auto; 
-    max-width: 60%; 
-    font-size: 1.5vw;
+    max-width: 70%; 
+    font-size: 1.75vw;
 }
 
 .content-section {
@@ -146,7 +153,7 @@ h1{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px; /* Adjust as needed */
+    margin-bottom: 20px; 
 }
 
 .about-item.reverse {
@@ -159,12 +166,12 @@ h1{
 }
 
 .about-image img {
-    max-width: 100%; /* Ensures the image is responsive */
+    max-width: 70%; 
     height: auto;
 }
 
 .about-text {
-    text-align: left; /* Adjust text alignment as needed */
+    text-align: left; 
 }
 
 
