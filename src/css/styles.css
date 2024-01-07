@@ -452,10 +452,57 @@ header .current-date{
 }
 
 
-/*-MOBILE VIEW---------------------------------------------------------------------------------------*/
-@media (max-width: 600px) {
 
-    .content {
-        margin-top: 10vh;
+/* Mobile View */
+@media (max-width: 768px) {
+    /* Hide sidebar */
+    .side-controls {
+        display: none;
+    }
+
+    h1 {
+        font-size: 5vw; /* Adjust as necessary */
+    }
+
+    .content-section {
+        padding: 10px;
+    }
+
+    .aboutMe-image img, .gallery-image img, .appointment-image img, .contact-image img, .logo img, .name-image img, .hero-image img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .welcome-text {
+        font-size: 4vw; 
+        padding: 10px;
+        max-width: 90%;
+    }
+
+    .about-container, .about-item {
+        flex-direction: column;
+    }
+
+    .wrapper {
+        width: 90%;
+    }
+
+    #contact-form {
+        width: 90%;
+        padding: 10px;
+    }
+
+    header .icons span {
+        height: 5vw;
+        width: 5vw;
+        font-size: 3.5rem;
+    }
+
+    .calendar li {
+        font-size: 3vw;
+    }
+
+    .availability-instruction {
+        font-size: 4vw;
     }
 }
