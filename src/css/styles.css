@@ -160,12 +160,32 @@ h1{
     flex-direction: row-reverse;
 }
 
-.about-image, .about-text {
+.about-image1, .about-text {
     flex: 1; 
     padding: 10px;
 }
 
-.about-image img {
+.about-image1 img {
+    max-width: 70%; 
+    height: auto;
+}
+
+.about-image2, .about-text {
+    flex: 1; 
+    padding: 10px;
+}
+
+.about-image2 img {
+    max-width: 70%; 
+    height: auto;
+}
+
+.about-image3, .about-text {
+    flex: 1; 
+    padding: 10px;
+}
+
+.about-image3 img {
     max-width: 70%; 
     height: auto;
 }
@@ -454,7 +474,7 @@ header .current-date{
 
 
 
-/* Mobile View */
+/* Mobile View  ---------------------------------------------------------------------------------------*/
 @media (max-width: 768px) {
     /* Hide sidebar */
     .side-controls {
@@ -469,7 +489,7 @@ header .current-date{
         padding: 10px;
     }
 
-    /*Home Page*/
+    /*Home Page---------------------------------------------------------------------------------------*/
     .logo img{
         width: 70%
     }
@@ -480,14 +500,39 @@ header .current-date{
         max-width: 80%;
     }
 
-    /*About Me*/
-    .aboutMe-image img {
-        max-width: 60%;
+    /*About Me ---------------------------------------------------------------------------------------*/
+    
+    .aboutMe-image img{
+        max-width: 50%;
+    }
+    .about-item {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
     }
 
-    /*Gallery*/
+    .about-image1, .about-image2, .about-image3, .about-text {
+        grid-column: span 1; 
+    }
+
+    .about-image1 img, .about-image2 img, .about-image3 img {
+        width: 100%; 
+        height: auto;
+    }
+
+    .about-item.reverse .about-image1, 
+    .about-item.reverse .about-image2, 
+    .about-item.reverse .about-image3 {
+        order: 2; 
+    }
+
+    .about-item.reverse .about-text {
+        order: 1; 
+    }
+
+    /*Gallery ---------------------------------------------------------------------------------------*/
     .gallery-image img{
-        max-width: 50%;
+        max-width: 40%;
     }
 
     .about-container, .about-item {
@@ -495,7 +540,7 @@ header .current-date{
     }
 
 
-    /*Appointment Section*/
+    /*Appointment ---------------------------------------------------------------------------------------*/
     .appointment-image img{
         max-width: 90%;
     }
@@ -535,7 +580,7 @@ header .current-date{
 
     /*Contact Me*/
     .contact-image img{
-        max-width: 80%;
+        max-width: 75%;
     }
     #contact-form {
         width: 70%;
