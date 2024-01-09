@@ -122,11 +122,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listener for calendar days
     document.querySelectorAll('.days li').forEach(day => {
         day.addEventListener('click', function() {
- 
-            const day = this.textContent; 
-            const month = currMonth + 1; 
-            const dateText = `${month}/${day}/${currYear}`; 
-            showAvailabilityPopup(dateText);
+            const dayNumber = parseInt(this.textContent, 10); // Parse the day number to an integer
+            const selectedDate = new Date(currYear, currMonth, dayNumber);
+            const today = new Date();
+            
+            // Reset the hours, minutes, seconds, and milliseconds of today to ensure accurate comparison
+            today.setHours(0,0,0,0);
+            
+            if (selectedDate < today) {
+                // The selected date is in the past
+                document.getElementById('availability-text').innerText = "You have selected a day in the past, please select a future date to see my availability.";
+                document.getElementById('availability-popup').style.display = 'block';
+            } else {
+                // The selected date is today or in the future
+                const formattedDate = `${selectedDate.getMonth() + 1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`;
+                showAvailabilityPopup(formattedDate);
+            }
         });
     });
 
