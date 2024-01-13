@@ -59,10 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     currMonth = date.getMonth();
 
     // storing full name of all months in array
-    const months = ["January", "February", "March", "April", "May", "June", "July",
-                "August", "September", "October", "November", "December"];
-
-    // Function to render the calendar
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const renderCalendar = () => {
         let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),
             lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
@@ -76,18 +73,50 @@ document.addEventListener('DOMContentLoaded', function() {
     
         for (let i = 1; i <= lastDateofMonth; i++) {
             let isToday = i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear() ? "active" : "";
-            liTag += `<li class="${isToday}">${i}</li>`; // Removed "current-month" class to simplify the logic
+            liTag += `<li class="${isToday}">${i}</li>`;
         }
     
         for (let i = lastDayofMonth; i < 6; i++) {
             liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
         }
+    
         currentDate.innerText = `${months[currMonth]} ${currYear}`;
         daysTag.innerHTML = liTag;
+    
+        // Re-attach event listeners to calendar days after rendering
+        attachDayClickListeners();
     };
     
+    const attachDayClickListeners = () => {
+        document.querySelectorAll('.days li:not(.inactive)').forEach(day => {
+            day.addEventListener('click', function() {
+                const dayNumber = parseInt(this.textContent, 10);
+                const selectedDate = new Date(currYear, currMonth, dayNumber);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+        
+                console.log('Selected date:', selectedDate);
+                console.log('Today:', today);
+        
+                if (selectedDate < today) {
+                    console.log('Selected date is in the past.');
+                    showAvailabilityPopup("", true);
+                } else {
+                    console.log('Selected date is today or in the future.');
+                    const month = selectedDate.getMonth() + 1;
+                    const day = selectedDate.getDate();
+                    const year = selectedDate.getFullYear();
+                    const formattedDate = `${month}/${day}/${year}`;
+                    showAvailabilityPopup(formattedDate, false);
+                }
+            });
+        });        
+    };
+    
+    // Call this function once during the initial script execution to set up the initial state
     renderCalendar();
     
+
     prevNextIcon.forEach(icon => { 
         icon.addEventListener("click", () => { 
             currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
@@ -104,8 +133,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Function to show the availability popup with the selected date
-    function showAvailabilityPopup(dateText) {
-        document.getElementById('selected-date').innerText = dateText;
+    function showAvailabilityPopup(dateText, isPast) {
+        let message = isPast ? 
+            "You have selected a day in the past, please select a future date to see my availability." 
+            : `Availability on ${dateText}`;
+        document.getElementById('selected-date').innerText = message;
         document.getElementById('availability-popup').style.display = 'block';
     }
 
@@ -119,39 +151,25 @@ document.addEventListener('DOMContentLoaded', function() {
         hideAvailabilityPopup();
     });
 
-    // Add event listener for calendar days
-    document.querySelectorAll('.days li').forEach(day => {
-        day.addEventListener('click', function() {
-            const dayNumber = parseInt(this.textContent, 10); // Parse the day number to an integer
-            const selectedDate = new Date(currYear, currMonth, dayNumber);
-            const today = new Date();
-            
-            // Reset the hours, minutes, seconds, and milliseconds of today to ensure accurate comparison
-            today.setHours(0,0,0,0);
-            
-            if (selectedDate < today) {
-                // The selected date is in the past
-                document.getElementById('availability-text').innerText = "You have selected a day in the past, please select a future date to see my availability.";
-                document.getElementById('availability-popup').style.display = 'block';
-            } else {
-                // The selected date is today or in the future
-                const formattedDate = `${selectedDate.getMonth() + 1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`;
-                showAvailabilityPopup(formattedDate);
-            }
-        });
-    });
+
+
+
+    
 
     // Event delegation for calendar days
     document.querySelector(".calendar").addEventListener('click', function(e) {
         // Check if the clicked element is a day in the calendar and is not 'inactive'
         if (e.target.tagName === 'LI' && !e.target.classList.contains('inactive')) {
-            const day = e.target.textContent;
-            const date = new Date(currYear, currMonth, day);
-            if (date.getMonth() === currMonth) { 
-                // Format the date as MM/DD/YYYY
-                const formattedDate = `${date.getMonth() + 1}/${day}/${date.getFullYear()}`;
-                // Now you can show the popup for the selected date
-                showAvailabilityPopup(formattedDate);
+            const day = parseInt(e.target.textContent, 10);
+            const selectedDate = new Date(currYear, currMonth, day);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (selectedDate < today) {
+                showAvailabilityPopup("", true);
+            } else {
+                const formattedDate = `${selectedDate.getMonth() + 1}/${day}/${selectedDate.getFullYear()}`;
+                showAvailabilityPopup(formattedDate, false);
             }
         }
     });
@@ -227,18 +245,18 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCalendar()
     };
     
-    // Add event listener for calendar days
-    document.querySelectorAll('.days li').forEach(day => {
-        day.addEventListener('click', function() {
-            const date = `${currYear}-${currMonth + 1}-${this.textContent}`;
-            fetch(`/api/availability/${date}`)
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the response data
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    });
+    // // Add event listener for calendar days
+    // document.querySelectorAll('.days li').forEach(day => {
+    //     day.addEventListener('click', function() {
+    //         const date = `${currYear}-${currMonth + 1}-${this.textContent}`;
+    //         fetch(`/api/availability/${date}`)
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 // Handle the response data
+    //             })
+    //             .catch(error => console.error('Error:', error));
+    //     });
+    // });
 });
 
 
