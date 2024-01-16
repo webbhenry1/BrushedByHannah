@@ -65,11 +65,12 @@ def get_availability(date):
                 for slot in availability:
                     if isinstance(slot['availableStartTime'], timedelta):
                         slot['availableStartTime'] = str(slot['availableStartTime'])
-                    if isinstance(slot['availableEndTime'], timedelta):
+                    if isinstance(slot['availableEndTime'],timedelta):
                         slot['availableEndTime'] = str(slot['availableEndTime'])
-                return jsonify(availability)
-            else:
-                return jsonify([]), 404  
+                        return jsonify(availability)
+                    else:
+                        # Instead of returning a 404 error, return an empty list with 200 OK status.
+                        return jsonify({"message": "No available times", "availableSlots": []})
     finally:
         conn.close()
 
