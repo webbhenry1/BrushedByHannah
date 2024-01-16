@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_mail import Mail, Message
 from flask_cors import CORS
 from datetime import timedelta
+from datetime import datetime
+
 import json
 import pymysql
 
@@ -52,7 +54,26 @@ def send_message():
         print(f"An error occurred: {e}")
         return jsonify({'status': 'Error', 'message': str(e)}), 500
 
+#Fetches the availibility for the selected month
+@app.route('/api/monthly_availability/<year>/<month>', methods=['GET'])
+def get_monthly_availability(year, month):
+    conn = get_mysql_connection()
+    try:
+        with conn.cursor() as cur:
+            start_date = f"{year}-{month}-01"
+            end_date = f"{year}-{month}-{datetime.strptime(start_date, '%Y-%m-%d').monthrange()[1]}"
+            # Query to get available dates within the month
+            query = "SELECT DISTINCT date FROM TimeSlots WHERE date BETWEEN %s AND %s AND availableStartTime IS NOT NULL"
+            cur.execute(query, (start_date, end_date))
+            available_dates = [row['date'] for row in cur.fetchall()]
+            return jsonify(available_dates)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify({'status': 'Error', 'message': str(e)}), 500
+    finally:
+        conn.close()
 
+# Fetches the availibility for the given date
 @app.route('/api/availability/<date>', methods=['GET'])
 def get_availability(date):
     conn = get_mysql_connection()
@@ -61,7 +82,7 @@ def get_availability(date):
             result = cur.execute("SELECT availableStartTime, availableEndTime FROM TimeSlots WHERE date = %s", [date])
             if result > 0:
                 availability = cur.fetchall()
-                # Convert timedelta objects to a serializable format, e.g., string
+                # Convert timedelta objects to str
                 for slot in availability:
                     if isinstance(slot['availableStartTime'], timedelta):
                         slot['availableStartTime'] = str(slot['availableStartTime'])
@@ -69,7 +90,6 @@ def get_availability(date):
                         slot['availableEndTime'] = str(slot['availableEndTime'])
                         return jsonify(availability)
                     else:
-                        # Instead of returning a 404 error, return an empty list with 200 OK status.
                         return jsonify({"message": "No available times", "availableSlots": []})
     finally:
         conn.close()

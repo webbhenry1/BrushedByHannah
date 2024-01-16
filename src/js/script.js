@@ -82,8 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
         currentDate.innerText = `${months[currMonth]} ${currYear}`;
         daysTag.innerHTML = liTag;
+        const year = currYear;
+        const month = currMonth + 1; 
+        markAvailableDates(year, month);
     
-        // Re-attach event listeners to calendar days after rendering
         attachDayClickListeners();
     };
     
@@ -130,8 +132,23 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
     
+
+    function markAvailableDates(year, month) {
+        fetch(`http://18.220.182.66:5000/api/monthly_availability/${year}/${month}`)
+            .then(response => response.json())
+            .then(data => {
+                // Mark these dates in the calendar
+                data.forEach(date => {
+                    const day = new Date(date).getDate();
+                    const dayElement = document.querySelector(`.days li:not(.inactive):nth-child(${day})`);
+                    if (dayElement) {
+                        dayElement.classList.add('available');
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching monthly availability:', error));
+    }
     
-    // Call this function once during the initial script execution to set up the initial state
     renderCalendar();
     
 
@@ -147,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date = new Date(); 
             }
             renderCalendar(); 
+            markAvailableDates(currYear, currMonth + 1);
         });
     });
 
