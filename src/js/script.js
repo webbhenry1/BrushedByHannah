@@ -94,24 +94,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 const selectedDate = new Date(currYear, currMonth, dayNumber);
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
-        
-                console.log('Selected date:', selectedDate);
-                console.log('Today:', today);
-        
+    
                 if (selectedDate < today) {
-                    console.log('Selected date is in the past.');
                     showAvailabilityPopup("", true);
                 } else {
-                    console.log('Selected date is today or in the future.');
-                    const month = selectedDate.getMonth() + 1;
-                    const day = selectedDate.getDate();
-                    const year = selectedDate.getFullYear();
-                    const formattedDate = `${month}/${day}/${year}`;
-                    showAvailabilityPopup(formattedDate, false);
+                    // Format the date correctly for the API call
+                    const formattedDate = `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${dayNumber}`;
+                    fetchAvailabilityData(formattedDate);
                 }
             });
         });        
     };
+    
+    
+    function fetchAvailabilityData(date) {
+        // Correctly formatting the date string
+        const [year, month, day] = date.split("-");
+        const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    
+        fetch(`http://18.220.182.66:5000/api/availability/${formattedDate}`)
+        .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Assuming data is an array of availability times
+                let availabilityText = data.map(slot => `${slot.availableStartTime} - ${slot.availableEndTime}`).join(', ');
+                showAvailabilityPopup(availabilityText, false);
+            })
+            .catch(error => {
+                console.error('Error fetching availability:', error);
+                showAvailabilityPopup("Error fetching availability.", true);
+            });
+    }
+    
     
     // Call this function once during the initial script execution to set up the initial state
     renderCalendar();
