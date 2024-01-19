@@ -110,21 +110,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     
     function fetchAvailabilityData(date) {
-        // Correctly formatting the date string
         const [year, month, day] = date.split("-");
         const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     
         fetch(`http://18.220.182.66:5000/api/availability/${formattedDate}`)
-        .then(response => {
+            .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                // Assuming data is an array of availability times
-                let availabilityText = data.map(slot => `${slot.availableStartTime} - ${slot.availableEndTime}`).join(', ');
-                showAvailabilityPopup(availabilityText, false);
+                if (Array.isArray(data)) {
+                    // Assuming data is an array of availability times
+                    let availabilityText = data.map(slot => `${slot.availableStartTime} - ${slot.availableEndTime}`).join(', ');
+                    showAvailabilityPopup(availabilityText, false);
+                } else if (data.message && data.availableSlots) {
+                    // Handle the case where there are no available times
+                    showAvailabilityPopup(data.message, true);
+                }
             })
             .catch(error => {
                 console.error('Error fetching availability:', error);
@@ -132,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
     
-
+    
     function markAvailableDates(year, month) {
         fetch(`http://18.220.182.66:5000/api/monthly_availability/${year}/${month}`)
             .then(response => response.json())

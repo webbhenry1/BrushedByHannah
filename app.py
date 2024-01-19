@@ -3,6 +3,8 @@ from flask_mail import Mail, Message
 from flask_cors import CORS
 from datetime import timedelta
 from datetime import datetime
+import calendar
+
 
 import json
 import pymysql
@@ -60,8 +62,9 @@ def get_monthly_availability(year, month):
     conn = get_mysql_connection()
     try:
         with conn.cursor() as cur:
-            start_date = f"{year}-{month}-01"
-            end_date = f"{year}-{month}-{datetime.strptime(start_date, '%Y-%m-%d').monthrange()[1]}"
+            start_date = f"{year}-{month.zfill(2)}-01"
+            end_month_day = calendar.monthrange(int(year), int(month))[1]
+            end_date = f"{year}-{month.zfill(2)}-{str(end_month_day).zfill(2)}"
             # Query to get available dates within the month
             query = "SELECT DISTINCT date FROM TimeSlots WHERE date BETWEEN %s AND %s AND availableStartTime IS NOT NULL"
             cur.execute(query, (start_date, end_date))
@@ -82,15 +85,19 @@ def get_availability(date):
             result = cur.execute("SELECT availableStartTime, availableEndTime FROM TimeSlots WHERE date = %s", [date])
             if result > 0:
                 availability = cur.fetchall()
-                # Convert timedelta objects to str
+                # Convert timedelta objects to a serializable format, e.g., string
                 for slot in availability:
                     if isinstance(slot['availableStartTime'], timedelta):
                         slot['availableStartTime'] = str(slot['availableStartTime'])
-                    if isinstance(slot['availableEndTime'],timedelta):
+                    if isinstance(slot['availableEndTime'], timedelta):
                         slot['availableEndTime'] = str(slot['availableEndTime'])
-                        return jsonify(availability)
-                    else:
-                        return jsonify({"message": "No available times", "availableSlots": []})
+                return jsonify(availability)
+            else:
+                # Return a response indicating no available times
+                return jsonify({"message": "No available times", "availableSlots": []})
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify({'status': 'Error', 'message': str(e)}), 500
     finally:
         conn.close()
 
