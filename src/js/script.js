@@ -121,13 +121,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                if (Array.isArray(data)) {
+                if (data.availableSlots && data.availableSlots.length === 0) {
+                    // Handle no available times differently
+                    showAvailabilityPopup("No available times for this date.", false);
+                } else {
                     // Assuming data is an array of availability times
                     let availabilityText = data.map(slot => `${slot.availableStartTime} - ${slot.availableEndTime}`).join(', ');
                     showAvailabilityPopup(availabilityText, false);
-                } else if (data.message && data.availableSlots) {
-                    // Handle the case where there are no available times
-                    showAvailabilityPopup(data.message, true);
                 }
             })
             .catch(error => {
@@ -155,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     renderCalendar();
     
-
     prevNextIcon.forEach(icon => { 
         icon.addEventListener("click", () => { 
             currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
@@ -191,10 +190,6 @@ document.addEventListener('DOMContentLoaded', function() {
         hideAvailabilityPopup();
     });
 
-
-
-
-    
 
     // Event delegation for calendar days
     document.querySelector(".calendar").addEventListener('click', function(e) {
@@ -285,18 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCalendar()
     };
     
-    // // Add event listener for calendar days
-    // document.querySelectorAll('.days li').forEach(day => {
-    //     day.addEventListener('click', function() {
-    //         const date = `${currYear}-${currMonth + 1}-${this.textContent}`;
-    //         fetch(`/api/availability/${date}`)
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 // Handle the response data
-    //             })
-    //             .catch(error => console.error('Error:', error));
-    //     });
-    // });
 });
 
 
