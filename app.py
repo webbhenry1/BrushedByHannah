@@ -102,6 +102,43 @@ def get_availability(date):
         conn.close()
 
 
+@app.route('/book_appointment', methods=['POST'])
+def book_appointment():
+    data = request.get_json()
+
+    date = data['date']
+    start_time = data['startTime']
+    end_time = data['endTime']
+    service = data['service']
+    customer_name = data['customerName']
+    customer_email = data['customerEmail']
+    customer_phone = data['customerPhone']
+    comments = data['comments']
+
+    conn = get_mysql_connection()
+    try:
+        with conn.cursor() as cur:
+            # Check if slot is still available
+            cur.execute("SELECT * FROM TimeSlots WHERE date = %s AND availableStartTime = %s AND availableEndTime = %s", (date, start_time, end_time))
+            if cur.fetchone() is None:
+                return jsonify({'status': 'Error', 'message': 'Time slot is no longer available'}), 409  # Conflict
+
+            # Update the TimeSlots table to reflect the booked slot
+            cur.execute("UPDATE TimeSlots SET isBooked = 1 WHERE date = %s AND availableStartTime = %s AND availableEndTime = %s", (date, start_time, end_time))
+
+            # Insert into Appointments table
+            cur.execute("INSERT INTO Appointments (date, startTime, endTime, service, customerName, customerEmail, customerPhone, comments) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (date, start_time, end_time, service, customer_name, customer_email, customer_phone, comments))
+
+            conn.commit()
+            return jsonify({'status': 'Success', 'message': 'Appointment booked successfully'})
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify({'status': 'Error', 'message': str(e)}), 500
+    finally:
+        conn.close()
+
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
