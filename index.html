@@ -127,7 +127,7 @@
             <p id="availability-text">Availability on <span id="selected-date">XXXX</span></p>
         </div>
 
-
+        <!-- Popup for showing Service Options -->
         <div id="service-selection-popup" class="service-selection-popup">
             <button class="service-option" data-duration="60">Men's Basic Cut (30 mins)</button>
             <button class="service-option" data-duration="60">Men's Wash & Cut (1 hour)</button>
@@ -135,6 +135,19 @@
             <button class="service-option" data-duration="120">Women's Cut (1 hour)</button>
             <button class="service-option" data-duration="120">Women's Cut & Color (3 hours)</button>
         </div>
+
+        <!-- Popup for collecting user info -->
+        <div id="user-info-form" style="display: none;">
+            <form id="booking-form">
+                <input type="text" id="customer-name" name="customerName" placeholder="Your Name" required>
+                <input type="email" id="customer-email" name="customerEmail" placeholder="Email Address" required>
+                <input type="tel" id="customer-phone" name="customerPhone" placeholder="Phone Number" required>
+                <textarea id="comments" name="comments" placeholder="Comments (optional)"></textarea>
+                <button type="button" id="confirm-booking-btn">Confirm Appointment</button>
+            </form>
+
+        </div>
+        
     </section>
 
     <!-- Contact Section -->

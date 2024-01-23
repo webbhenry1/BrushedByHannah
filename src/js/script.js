@@ -190,6 +190,55 @@ document.addEventListener('DOMContentLoaded', function() {
         hideAvailabilityPopup();
     });
 
+    // Function to show the user info form
+    function showUserInfoForm() {
+        document.getElementById("user-info-form").style.display = "block";
+    }
+
+    // Event listener for Confirm Booking button
+    document.getElementById("confirm-booking-btn").addEventListener("click", bookAppointment);
+
+    // Function to book an appointment
+    function bookAppointment() {
+        const customerName = document.getElementById("customer-name").value;
+        const customerEmail = document.getElementById("customer-email").value;
+        const customerPhone = document.getElementById("customer-phone").value;
+        const comments = document.getElementById("comments").value;
+
+        // Assuming you have variables for the selected service and time slot
+        const appointmentData = {
+            date: selectedDate,
+            startTime: selectedStartTime,
+            endTime: selectedEndTime,
+            service: selectedService,
+            customerName: customerName,
+            customerEmail: customerEmail,
+            customerPhone: customerPhone,
+            comments: comments
+        };
+
+        fetch('http://18.220.182.66:5000/book_appointment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(appointmentData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'Success') {
+                alert('Appointment booked successfully');
+            } else {
+                alert(data.message); 
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error booking appointment');
+        });
+    }
+
+
 
     // Event delegation for calendar days
     document.querySelector(".calendar").addEventListener('click', function(e) {
