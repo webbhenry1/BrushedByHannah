@@ -42,7 +42,6 @@ h1{
 /* Content section styling */
 .content-section {
     padding: 20px;
-    margin-bottom: 2vh; 
     border-bottom: 5px solid #593B1F; 
 }
 
@@ -56,11 +55,12 @@ h1{
 
 .aboutMe-image img {
     display: block; 
-    max-width: 30%; 
+    max-width: 40%; 
     height: auto; 
     margin: 1vh auto; 
     border-radius: 15px; 
-    margin-bottom: 2vh;
+    margin-bottom: 5vh;
+    margin-top: -5vh;
 }
 
 .gallery-image img {
@@ -69,7 +69,9 @@ h1{
     height: auto; 
     margin: 1vh auto; 
     border-radius: 15px; 
-    margin-bottom: 2vh;
+    margin-bottom: 5vh;
+    margin-top: -5vh;
+
 }
 
 .appointment-image img {
@@ -79,6 +81,8 @@ h1{
     margin: 1vh auto; 
     border-radius: 15px; 
     margin-bottom: 2vh;
+    margin-top: -5vh;
+
 }
 
 .contact-image img {
@@ -88,6 +92,17 @@ h1{
     margin: 1vh auto; 
     border-radius: 15px; 
     margin-bottom: 2vh;
+}
+
+.services-image img {
+    display: block; 
+    max-width: 35%; 
+    height: auto; 
+    margin: 1vh auto; 
+    border-radius: 15px; 
+    margin-bottom: 2vh;
+    margin-top: -5vh;
+
 }
 
 /*-HOME SECTION---------------------------------------------------------------------------------------*/
@@ -107,9 +122,9 @@ h1{
 }
 
 .main-header .logo img {
-    height: 25%; 
-    width: 25%;
-    margin-right: auto; /* Pushes everything else to the right */
+    height: 30%; 
+    width: 30%;
+    margin-right: auto; 
     margin-left: 0;
 }
 
@@ -258,6 +273,7 @@ h1{
     box-shadow: 0 15px 40px rgba(0,0,0,0.12);
     margin-top: 3vh;
     margin-bottom: 5vh;
+    height: 40%;
 }
 .wrapper header{
     display: flex;
@@ -351,6 +367,11 @@ header .current-date{
     font-size: 1.6rem;
     color: black; 
 }
+
+#service-selection-popup {
+    display: none;
+}
+
 
 /*-CONTACT ME---------------------------------------------------------------------------------------*/
 
